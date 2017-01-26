@@ -1,8 +1,7 @@
 var matrix = [
 	[0, 3, -6, 6, 4, -5],
 	[3, -7, 8, -5, 8, 9],
-	[3, -9, 12, -9, 6, 15],
-	[2, 5, 10, 25, 15, 50]
+	[3, -9, 12, -9, 6, 15]
 ];
 
 console.log('The Original Matrix');
@@ -54,7 +53,10 @@ Begin with the leftmost nonzero column. This is a pivot column. The pivot positi
 ****************************************************************************************************/
 var pivotRow = 0;
 var pivotColumn = 0; //The first column in the matrix
-var pivot = matrix[pivotRow][pivotColumn]; // The value of the pivot
+var pivotFunction = function(pivotRowx, pivotColumnx){
+	return matrix[pivotRowx][pivotColumnx];
+};
+var pivot = pivotFunction(pivotRow, pivotColumn); // The value of the pivot
 var biggest = pivot;
 
 /*************************************************************************************************************************************
@@ -65,11 +67,11 @@ Select a nonzero entry in the pivot column as a pivot. I fnecessary, interchange
 **************************************************************************************************************************************/
 
 //Interchanging rows in case the pivot vlaue at the top of the pivot column is 0 and replacing with a row with nonzero entry
-function interchangeRows(pivot, pivotRow, pivotColumn){
+function interchangeRows(pivot, pivotRowx, pivotColumnx){
 	var newPivotRow;
 		if (pivot === 0){
 			for (var i = 0; i<matrix.length; i++){
-				var pivotColumnValue = matrix[i][pivotColumn]; //The value of the column in each row of the pivot column
+				var pivotColumnValue = matrix[i][pivotColumnx]; //The value of the column in each row of the pivot column
 				if (pivotColumnValue != 0) { //Checks if value of the pivot column of the row is nonzero
 					if (Math.abs(pivotColumnValue)>=biggest){ //Selects a pivot entry in the pivot column with the largest absolute value
 						biggest = pivotColumnValue;
@@ -77,15 +79,17 @@ function interchangeRows(pivot, pivotRow, pivotColumn){
 					}
 				}
 			};
-			swapRows(matrix, pivotRow, newPivotRow) //Interchanges the nonzero entry row to the pivot row
-			pivotRow = 0; //Pivot row is set to the first row
+
+			if (newPivotRow != pivotRowx){
+				swapRows(matrix, pivotRowx, newPivotRow) //Interchanges the nonzero entry row to the pivot row
+			}
 		}
 
 		for (var i = 0; i<matrix.length; i++){
 			console.log(matrix[i]);
 		};
 }
-console.log('Interchanging Rows');
+console.log('\nInterchanging Rows');
 interchangeRows(pivot, pivotRow, pivotColumn);
 
 /**********************************************************************************
@@ -97,9 +101,14 @@ Use row replacement operations to create zeros in all positions below the pivot
 
 rowReplacemntOperation(matrix, pivotRow, pivotColumn);
 
+pivotRow++; //Pivot row is incremented
+pivotColumn++; //Pivot column is incremented
+pivot = pivotFunction(pivotRow, pivotColumn); //Update pivot value
 
-console.log('Eliminating enteries under the Pivot');
+console.log('\nEliminating enteries under the Pivot');
 
 for (var i = 0; i<matrix.length; i++){
 	console.log(matrix[i]);
 };
+
+console.log("Pivot is: ", pivot, "Pivot Column is: ", pivotColumn, "Pivot Row is: ", pivotRow);
