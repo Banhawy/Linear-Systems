@@ -4,11 +4,11 @@ var matrix = [
 	[3, -9, 12, -9, 6, 15]
 ];
 
-console.log('The Original Matrix');
-
-for (var i = 0; i<matrix.length; i++){
-	console.log(matrix[i]);
-};
+function dislpayMatrix(){
+	for (var i = 0; i<matrix.length; i++){
+				console.log(matrix[i]);
+			};
+}
 
 function swapRows(arr, oldIndex, newIndex){
 	//Use Bitwise XOR to swap values between two rows in a matrix, interchanging the rows
@@ -21,16 +21,18 @@ function swapRows(arr, oldIndex, newIndex){
 
 function rowReplacemntOperation(arr, pivotRow, pivotColumn){
 	for (var i = pivotRow+1; i < arr.length; i++) {
-		var pivotColCounter = 0; //Pointer to the columns in the pivot row
+		var pivotColCounter = pivotColumn; //Pointer to the columns in the pivot row
 		var oRow = arr[i][pivotColumn];
 		var tempoRow = oRow;
-		for (var j = pivotColumn; j < arr[0].length; j++) {
-			if(pivotColCounter>=arr[0].length){
+
+		var rowLength= arr[0].length;
+		for (var j = pivotColumn; j < rowLength; j++) {
+			if(pivotColCounter>=rowLength){
 				pivotColCounter =0;
 			}
 			var pivot = arr[pivotRow][pivotColumn]; //The pivot value
 			var pRow = arr[pivotRow][pivotColCounter]; //Pointer to the column values  in the pivot row
-			//oRow = arr[]
+			
 			var operationRow = arr[i][j]; //A pointer to the current row/col value
 			
 			/*console.log('Its ' + operationRow);
@@ -43,6 +45,7 @@ function rowReplacemntOperation(arr, pivotRow, pivotColumn){
 			pivotColCounter++;
 		}
 	}
+	dislpayMatrix();
 };
 
 /****************************************************************************************************
@@ -51,6 +54,10 @@ function rowReplacemntOperation(arr, pivotRow, pivotColumn){
 Begin with the leftmost nonzero column. This is a pivot column. The pivot position is at the top.
 
 ****************************************************************************************************/
+console.log('The Original Matrix');
+
+dislpayMatrix();
+
 var pivotRow = 0;
 var pivotColumn = 0; //The first column in the matrix
 var pivotFunction = function(pivotRowx, pivotColumnx){
@@ -58,6 +65,8 @@ var pivotFunction = function(pivotRowx, pivotColumnx){
 };
 var pivot = pivotFunction(pivotRow, pivotColumn); // The value of the pivot
 var biggest = pivot;
+
+console.log("Pivot is: ", pivot, "Pivot Column is: ", pivotColumn, "Pivot Row is: ", pivotRow);
 
 /*************************************************************************************************************************************
 *Step 2*
@@ -80,16 +89,14 @@ function interchangeRows(pivot, pivotRowx, pivotColumnx){
 				}
 			};
 
-			if (newPivotRow != pivotRowx){
-				swapRows(matrix, pivotRowx, newPivotRow) //Interchanges the nonzero entry row to the pivot row
-			}
-		}
-
-		for (var i = 0; i<matrix.length; i++){
-			console.log(matrix[i]);
-		};
+				if (newPivotRow != pivotRowx){
+					swapRows(matrix, pivotRowx, newPivotRow) //Interchanges the nonzero entry row to the pivot row
+				}
+			console.log('\nInterchanging Rows');
+				dislpayMatrix();
+		}		
 }
-console.log('\nInterchanging Rows');
+
 interchangeRows(pivot, pivotRow, pivotColumn);
 
 /**********************************************************************************
@@ -107,8 +114,17 @@ pivot = pivotFunction(pivotRow, pivotColumn); //Update pivot value
 
 console.log('\nEliminating enteries under the Pivot');
 
-for (var i = 0; i<matrix.length; i++){
-	console.log(matrix[i]);
-};
+dislpayMatrix();
 
-console.log("Pivot is: ", pivot, "Pivot Column is: ", pivotColumn, "Pivot Row is: ", pivotRow);
+console.log("Pivot is: ", pivot, "Pivot Column is: ", pivotColumn, "Pivot Row is: ", pivotRow, "\n");
+
+/**********************************************************************************
+*Step 4*
+
+Apply steps 1-3 to the new submatrix starting from the new pivot position
+
+***********************************************************************************/
+
+console.log('Echelon Form Baybeeee:')
+interchangeRows(pivot, pivotRow, pivotColumn);
+rowReplacemntOperation(matrix, pivotRow, pivotColumn);
