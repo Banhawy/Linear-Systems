@@ -1,7 +1,7 @@
 var matrix = [
-	[0, 3, -6, 6, 4, -5],
-	[3, -7, 8, -5, 8, 9],
-	[3, -9, 12, -9, 6, 15]
+	[0, -3, -6, 4, 9],
+	[-1, -2, -1, 3, 1],
+	[1, 4, 5, -9, -7]
 ];
 
 function dislpayMatrix(){
@@ -105,16 +105,14 @@ interchangeRows(pivot, pivotRow, pivotColumn);
 Use row replacement operations to create zeros in all positions below the pivot
 
 ***********************************************************************************/
-
+console.log('\nEliminating enteries under the Pivot');
 rowReplacemntOperation(matrix, pivotRow, pivotColumn);
 
 pivotRow++; //Pivot row is incremented
 pivotColumn++; //Pivot column is incremented
 pivot = pivotFunction(pivotRow, pivotColumn); //Update pivot value
 
-console.log('\nEliminating enteries under the Pivot');
 
-dislpayMatrix();
 
 console.log("Pivot is: ", pivot, "Pivot Column is: ", pivotColumn, "Pivot Row is: ", pivotRow, "\n");
 
